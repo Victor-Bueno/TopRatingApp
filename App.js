@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import 'react-native-gesture-handler';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,29 +7,31 @@ import {
   ImageBackground,
   Picker,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default class App extends Component {
-  render() {
-    return(
-      <ImageBackground source={require("./img/bg-img.jpg")} style={styles.bgImg}>
-        <Text style={styles.title}>TopRating</Text>
-        <Text style={styles.introText}>Search for differents countrys and get to know their top rating musics!</Text>
-        <View style={styles.separator}></View>
-        <View style={styles.container}>
-          <Text style={styles.textStart}>Get Started:</Text>
-          <Picker style={styles.picker} mode={"dropdown"}>
-            <Picker.Item label="XX" value="none" />
-            <Picker.Item label="Brazil" value="br" />
-            <Picker.Item label="Italy" value="it" />
-            <Picker.Item label="United States" value="us" />
-            <Picker.Item label="United Kingdom" value="uk" />
-            <Picker.Item label="World Wide" value="xw" />
-          </Picker>
-          <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>
+const Stack = createStackNavigator();
+
+function SelectionCountryScreen() {
+  return(
+    <ImageBackground source={require("./img/bg-img.jpg")} style={styles.bgImg}>
+      <Text style={styles.title}>TopRating</Text>
+      <Text style={styles.introText}>Search for differents countrys and get to know their top rating musics!</Text>
+      <View style={styles.separator}></View>
+      <View style={styles.container}>
+        <Text style={styles.textStart}>Get Started:</Text>
+        <Picker style={styles.picker} mode={"dropdown"}>
+          <Picker.Item label="XX" value="none" />
+          <Picker.Item label="Brazil" value="br" />
+          <Picker.Item label="Italy" value="it" />
+          <Picker.Item label="United States" value="us" />
+          <Picker.Item label="United Kingdom" value="uk" />
+          <Picker.Item label="World Wide" value="xw" />
+        </Picker>
+        <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>
         </View>
-      </ImageBackground>
-    );
-  }
+    </ImageBackground>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
     letterSpacing: -5,
     fontSize: 68,
     textAlign: "center",
-    marginTop: 60,
+    marginTop: 30,
   },
 
   introText: {
@@ -82,6 +85,30 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 15,
     maxWidth: 360,
-    marginTop: 260,
+    marginTop: 250,
   },
 });
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen 
+          name="Home" 
+          component={SelectionCountryScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: "#8D1541",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
