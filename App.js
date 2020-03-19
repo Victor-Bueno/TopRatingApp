@@ -15,7 +15,7 @@ export default class App extends Component {
         <Text style={styles.introText}>Search for differents countrys and get to know their top rating musics!</Text>
         <View style={styles.separetor}></View>
         <View style={styles.container}>
-          <Text style={styles.text}>Get Started:</Text>
+          <Text style={styles.textStart}>Get Started:</Text>
           <Picker style={styles.picker} mode={"dropdown"}>
             <Picker.Item label="XX" value="none" />
             <Picker.Item label="Brazil" value="br" />
@@ -24,6 +24,7 @@ export default class App extends Component {
             <Picker.Item label="United Kingdom" value="uk" />
             <Picker.Item label="World Wide" value="xw" />
           </Picker>
+          <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>
         </View>
       </ImageBackground>
     );
@@ -63,10 +64,10 @@ const styles = StyleSheet.create({
 
   container: {
     marginTop: 100,
-    marginLeft: 20,
+    marginLeft: 26,
   },
 
-  text: {
+  textStart: {
     color: "#fff",
     fontSize: 18,
   },
@@ -75,5 +76,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     width: 350,
     marginTop: 5,
+  },
+
+  textOption: {
+    color: "#fff",
+    fontSize: 15,
+    maxWidth: 360,
+    marginTop: 260,
   },
 });
