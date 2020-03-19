@@ -13,7 +13,7 @@ export default class App extends Component {
       <ImageBackground source={require("./img/bg-img.jpg")} style={styles.bgImg}>
         <Text style={styles.title}>TopRating</Text>
         <Text style={styles.introText}>Search for differents countrys and get to know their top rating musics!</Text>
-        <View style={styles.separetor}></View>
+        <View style={styles.separator}></View>
         <View style={styles.container}>
           <Text style={styles.textStart}>Get Started:</Text>
           <Picker style={styles.picker} mode={"dropdown"}>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  separetor: {
+  separator: {
     backgroundColor: "#fff",
     width: 120,
     height: 3,
