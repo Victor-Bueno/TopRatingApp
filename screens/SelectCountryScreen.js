@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Text,
@@ -6,8 +6,22 @@ import {
     ImageBackground,
     Picker,
 } from 'react-native';
+import CountryProvider from "../provider/CountryProvider";
 
-export default function SelectCountryScreen() {
+export default class SelectCountryScreen extends Component {
+  state = { countries: [] }
+
+  componentDidMount() {
+    CountryProvider.getCountries()
+      .then(countries => this.setState({ countries }))
+      .catch((err) => console.log(err));
+  }
+
+  countriesRender(country) {
+    return (<Picker.Item key={country.id} label={country.name} value={country.value} />);
+  }
+  
+  render(){
     return(
       <ImageBackground source={require("../img/bg-img.jpg")} style={styles.bgImg}>
         <Text style={styles.title}>TopRating</Text>
@@ -16,24 +30,20 @@ export default function SelectCountryScreen() {
         <View style={styles.container}>
           <Text style={styles.textStart}>Get Started:</Text>
           <Picker style={styles.picker} mode={"dropdown"}>
-            <Picker.Item label="XX" value="none" />
-            <Picker.Item label="Brazil" value="br" />
-            <Picker.Item label="Italy" value="it" />
-            <Picker.Item label="United States" value="us" />
-            <Picker.Item label="United Kingdom" value="uk" />
-            <Picker.Item label="World Wide" value="xw" />
+            {this.state.countries.map((country) => this.countriesRender(country))}
           </Picker>
           <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>
-          </View>
+        </View>
       </ImageBackground>
     );
+  }
 }
 
 const styles = StyleSheet.create({
-    bgImg: {
-      width: "100%",
-      height: "100%",
-    },
+  bgImg: {
+    width: "100%",
+    height: "100%",
+  },
   
     title: {
       color: "#fff",
