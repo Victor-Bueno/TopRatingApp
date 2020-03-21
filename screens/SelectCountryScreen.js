@@ -17,20 +17,20 @@ export default class SelectCountryScreen extends Component {
       .catch((err) => console.log(err));
   }
 
-  countriesRender(country) {
-    return (<Picker.Item key={country.id} label={country.name} value={country.value} />);
+  renderCountryItem(country) {
+    return (<Picker.Item key={country.id} label={country.name} value={country.id} />);
   }
   
   render(){
     return(
       <ImageBackground source={require("../img/bg-img.jpg")} style={styles.bgImg}>
         <Text style={styles.title}>TopRating</Text>
-        <Text style={styles.introText}>Search for differents countrys and get to know their top rating musics!</Text>
+        <Text style={styles.introText}>Search for differents countries and get to know their top rating musics!</Text>
         <View style={styles.separator}></View>
         <View style={styles.container}>
           <Text style={styles.textStart}>Get Started:</Text>
           <Picker style={styles.picker} mode={"dropdown"}>
-            {this.state.countries.map((country) => this.countriesRender(country))}
+            {this.state.countries.map((country) => this.renderCountryItem(country))}
           </Picker>
           <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>
         </View>
