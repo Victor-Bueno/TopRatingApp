@@ -3,24 +3,33 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SelectCountryScreen from "./screens/SelectCountryScreen"
+import SearchResultScreen from "./screens/SearchResultScreen"
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator 
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#8D1541",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
         <Stack.Screen 
           name="Home" 
           component={SelectCountryScreen} 
+        />
+        <Stack.Screen 
+          name="SearchResult" 
+          component={SearchResultScreen} 
           options={{
-            headerStyle: {
-              backgroundColor: "#8D1541",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
+            title: "Showing the top musics:",
           }}
         />
       </Stack.Navigator>
