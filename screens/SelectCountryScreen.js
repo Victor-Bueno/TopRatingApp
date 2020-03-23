@@ -10,7 +10,10 @@ import {
 import CountryProvider from "../provider/CountryProvider";
 
 export default class SelectCountryScreen extends Component {
-  state = { countries: [] }
+  state = { 
+    countries: [],
+    countrySelected: "au"
+  }
 
   componentDidMount() {
     CountryProvider.getCountries()
@@ -31,7 +34,14 @@ export default class SelectCountryScreen extends Component {
         <View style={styles.separator}></View>
         <View style={styles.container}>
           <Text style={styles.textStart}>Get Started:</Text>
-          <Picker style={styles.picker} mode={"dropdown"}>
+          <Picker 
+            style={styles.picker} 
+            mode={"dropdown"}
+            onValueChange={(itemValue) =>
+              this.setState({countrySelected: itemValue})
+            }
+            selectedValue={this.state.countrySelected}
+          >
             {this.state.countries.map((country) => this.renderCountryItem(country))}
           </Picker>
           <TouchableOpacity style={styles.searchButton} onPress={() => { this.props.navigation.navigate("Search Result") }}>
