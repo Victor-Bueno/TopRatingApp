@@ -4,8 +4,8 @@ import {
     Text,
     StyleSheet,
     FlatList,
+    TouchableOpacity,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native';
 
 const testMusicData = [
     {
@@ -38,10 +38,10 @@ export default class SearchResultScreen extends Component {
         return(
             <View style={styles.container}>
                 <FlatList 
-                    data ={testMusicData /*TODO Data implemetation*/} 
+                    data ={testMusicData /* TODO Data implemetation */}
+                    keyExtractor = { music => music.id } 
                     renderItem = {({ music }) => (
                         <MusicListItem 
-                            keyExtractor={ music => music.id }
                             name={music.name}
                         />
                     )}
