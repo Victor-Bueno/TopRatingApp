@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SelectCountryScreen from "./screens/SelectCountryScreen"
@@ -35,6 +36,14 @@ function App() {
             headerTitleStyle: {
               fontWeight: 'bold',
             },
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => alert(/*TODO Implemet navigation*/'This is a button!')}
+              >
+                <Text style={{color:"#fff"}}>Back</Text>
+              </TouchableOpacity>
+            ),
           }}
         />
       </Stack.Navigator>
