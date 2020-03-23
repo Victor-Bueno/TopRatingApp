@@ -27,9 +27,10 @@ function App() {
           component={SelectCountryScreen} 
         />
         <Stack.Screen 
-          name="Showing the top musics:" 
+          name="Search Result" 
           component={SearchResultScreen} 
           options={{
+            title: "Showing the top musics:",
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity
