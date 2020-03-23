@@ -3,6 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SelectCountryScreen from "./screens/SelectCountryScreen"
+import SearchResultScreen from "./screens/SearchResultScreen"
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,19 @@ function App() {
         <Stack.Screen 
           name="Home" 
           component={SelectCountryScreen} 
+          options={{
+            headerStyle: {
+              backgroundColor: "#8D1541",
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <Stack.Screen 
+          name="Showing the top musics:" 
+          component={SearchResultScreen} 
           options={{
             headerStyle: {
               backgroundColor: "#8D1541",
