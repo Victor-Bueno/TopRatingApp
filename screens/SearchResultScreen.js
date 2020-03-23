@@ -6,6 +6,7 @@ import {
     FlatList,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import api from "../services/Api";
 
 const test = [
     {
@@ -34,6 +35,18 @@ function Item({ name }) {
 }
 
 export default class SearchResultScreen extends Component {
+    componentDidMount() {
+        this.loadMusics();
+    }
+
+    loadMusics = async () => {
+        const response = await api.get("chart.tracks.get?chart_name=top&page=1&page_size=10&country=br&f_has_lyrics=1&apikey=df305db8d07b8dfe85a2419fda233462");
+
+        const { docs } = response.data;
+
+        console.log(docs);
+    }
+
     render() {
         return(
             <View style={styles.container}>
