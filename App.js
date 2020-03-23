@@ -11,31 +11,25 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator 
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#8D1541",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
         <Stack.Screen 
           name="Home" 
           component={SelectCountryScreen} 
-          options={{
-            headerStyle: {
-              backgroundColor: "#8D1541",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
         />
         <Stack.Screen 
           name="Showing the top musics:" 
           component={SearchResultScreen} 
           options={{
-            headerStyle: {
-              backgroundColor: "#8D1541",
-            },
-            headerTintColor: "#fff",
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
             headerTitleAlign: 'center',
             headerRight: () => (
               <TouchableOpacity
