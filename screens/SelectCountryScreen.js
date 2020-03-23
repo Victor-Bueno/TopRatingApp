@@ -5,6 +5,7 @@ import {
     StyleSheet,
     ImageBackground,
     Picker,
+    TouchableOpacity,
 } from 'react-native';
 import CountryProvider from "../provider/CountryProvider";
 
@@ -20,6 +21,7 @@ export default class SelectCountryScreen extends Component {
   renderCountryItem(country) {
     return (<Picker.Item key={country.id} label={country.name} value={country.id} />);
   }
+
   
   render(){
     return(
@@ -32,6 +34,9 @@ export default class SelectCountryScreen extends Component {
           <Picker style={styles.picker} mode={"dropdown"}>
             {this.state.countries.map((country) => this.renderCountryItem(country))}
           </Picker>
+          <TouchableOpacity style={styles.searchButton} onPress={() => { /* TODO implement */ }}>
+            <Text style={styles.textStart}>Search</Text>
+          </TouchableOpacity>
           <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>
         </View>
       </ImageBackground>
@@ -86,10 +91,21 @@ const styles = StyleSheet.create({
       marginTop: 5,
     },
   
+    searchButton: {
+      backgroundColor: "#8D1541",
+      width: 90,
+      height: 50,
+      borderRadius: 6,
+      alignSelf: "center",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 25,
+    },
+
     textOption: {
       color: "#fff",
       fontSize: 15,
       maxWidth: 360,
-      marginTop: 250,
+      marginTop: 190,
     },
 });
