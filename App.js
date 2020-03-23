@@ -31,14 +31,6 @@ function App() {
           component={SearchResultScreen} 
           options={{
             title: "Showing the top musics:",
-            headerTitleAlign: 'center',
-            headerRight: () => (
-              <TouchableOpacity
-                onPress={() => alert(/*TODO Implemet navigation*/'This is a button!')}
-              >
-                <Text style={{color:"#fff"}}>Back</Text>
-              </TouchableOpacity>
-            ),
           }}
         />
       </Stack.Navigator>
