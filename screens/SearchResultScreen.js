@@ -5,9 +5,9 @@ import {
     StyleSheet,
     FlatList,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 
-const test = [
+const testMusicData = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       name: 'First Item',
@@ -22,7 +22,7 @@ const test = [
     },
 ];
 
-function Item({ name }) {
+function MusicListItem({ name }) {
     return(
         <View style={styles.itemView}>
             <TouchableOpacity style={styles.hiddenButton} onPress={() => { /* TODO Button implementation */ }}>
@@ -38,10 +38,11 @@ export default class SearchResultScreen extends Component {
         return(
             <View style={styles.container}>
                 <FlatList 
-                    data ={test /*TODO Data implemetation*/} 
-                    renderItem = {({ item }) => (
-                        <Item 
-                            name={item.name}
+                    data ={testMusicData /*TODO Data implemetation*/} 
+                    renderItem = {({ music }) => (
+                        <MusicListItem 
+                            keyExtractor={ music => music.id }
+                            name={music.name}
                         />
                     )}
                 />
