@@ -6,27 +6,14 @@ import {
     FlatList,
     TouchableOpacity,
 } from 'react-native';
+import TrackListProvider from "../provider/TrackListProvider";
 
-const testMusicData = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      name: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      name: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      name: 'Third Item',
-    },
-];
 
-function MusicListItem({ name }) {
+const MusicListItemRender = ( track ) => {
     return(
         <View style={styles.itemView}>
             <TouchableOpacity style={styles.hiddenButton} onPress={() => { /* TODO Button implementation */ }}>
-                <Text style={styles.itemName}>{ name }</Text>
+                <Text style={styles.itemName}> { track }</Text>
             </TouchableOpacity>
             <View style={styles.separator}></View>
         </View>
@@ -34,32 +21,36 @@ function MusicListItem({ name }) {
 }
 
 export default class SearchResultScreen extends Component {
-    componentDidMount() {
-        this.loadMusics();
+    state = {
+        trackList: [],
+        loading: true,
     }
 
-    loadMusics = async () => {
-        const response = await api.get("chart.tracks.get?chart_name=top&page=1&page_size=10&country=br&f_has_lyrics=1&apikey=df305db8d07b8dfe85a2419fda233462");
-
-        const { docs } = response.data;
-
-        console.log(docs);
+    componentDidMount() {
+        TrackListProvider.getTrackList()
+            .then(trackList => this.setState({loading: false, trackList }))
+            .catch((err) => console.log(err));
     }
 
     render() {
-        return(
-            <View style={styles.container}>
-                <FlatList 
-                    data ={testMusicData /* TODO Data implemetation */}
-                    keyExtractor = { music => music.id } 
-                    renderItem = {({ music }) => (
-                        <MusicListItem 
-                            name={music.name}
-                        />
-                    )}
-                />
-            </View>
-        );
+        if(this.state.loading) {
+            return (
+                <View style={styles.container}></View>
+              );
+            }
+            else{
+            return(
+                <View style={styles.container}>
+                    <FlatList 
+                        data ={this.state.trackList}
+                        keyExtractor = { music => music.track.track_id.toString() } 
+                        renderItem = {({ item }) => (
+                            MusicListItemRender(item.track.track_name)
+                        )}
+                    />
+                </View>
+            );
+        }
     }
 }
 
