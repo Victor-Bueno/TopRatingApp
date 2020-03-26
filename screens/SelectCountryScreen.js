@@ -44,7 +44,7 @@ export default class SelectCountryScreen extends Component {
           >
             {this.state.countries.map((country) => this.renderCountryItem(country))}
           </Picker>
-          <TouchableOpacity style={styles.searchButton} onPress={() => { this.props.navigation.navigate("SearchResult", {selectedCountryId: this.state.countrySelected}) }}>
+          <TouchableOpacity style={styles.searchButton} onPress={() => { this.props.navigation.navigate("SearchResult", { countrySelected: this.state.countrySelected }) }}>
             <Text style={styles.textStart}>Search</Text>
           </TouchableOpacity>
           <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>

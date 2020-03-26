@@ -27,7 +27,8 @@ export default class SearchResultScreen extends Component {
     }
 
     componentDidMount() {
-        TrackListProvider.getTrackList()
+        let { countrySelected } = this.props.route.params;
+        TrackListProvider.getTrackList(countrySelected)
             .then(trackList => this.setState({loading: false, trackList }))
             .catch((err) => console.log(err));
     }
