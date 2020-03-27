@@ -36,7 +36,9 @@ export default class SearchResultScreen extends Component {
     render() {
         if(this.state.loading) {
             return (
-                <View style={styles.container}></View>
+                <View style={styles.container}>
+                    <Text style={styles.loading}>Loading...</Text>
+                </View>
               );
             }
             else{
@@ -44,9 +46,9 @@ export default class SearchResultScreen extends Component {
                 <View style={styles.container}>
                     <FlatList 
                         data ={this.state.trackList}
-                        keyExtractor = { music => music.track.track_id.toString() } 
+                        keyExtractor = { music => music.id } 
                         renderItem = {({ item }) => (
-                            MusicListItemRender(item.track.track_name)
+                            MusicListItemRender(item.name)
                         )}
                     />
                 </View>
@@ -59,6 +61,13 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#2f2538",
         flex: 1,
+    },
+
+    loading: {
+        color: "#fff",
+        fontSize: 24,
+        textAlign: "center",
+        marginTop: 100,
     },
 
     itemView: {
