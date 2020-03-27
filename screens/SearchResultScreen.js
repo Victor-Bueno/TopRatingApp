@@ -5,6 +5,7 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 import TrackListProvider from "../provider/TrackListProvider";
 
@@ -30,7 +31,17 @@ export default class SearchResultScreen extends Component {
         let { countrySelected } = this.props.route.params;
         TrackListProvider.getTrackList(countrySelected)
             .then(trackList => this.setState({loading: false, trackList }))
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err)
+                Alert.alert(
+                    'Error',
+                    'Error trying to search for the best musics',
+                    [
+                      {text: 'Try again', onPress: () => this.props.navigation.navigate("Home")},
+                    ],
+                    { cancelable: false }
+                  )
+            });
     }
 
     render() {
