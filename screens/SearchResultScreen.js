@@ -37,7 +37,7 @@ export default class SearchResultScreen extends Component {
                     'Error',
                     'Error trying to search for the best musics',
                     [
-                      {text: 'Try again', onPress: () => this.props.navigation.navigate("Home")},
+                      {text: 'Try again', onPress: () => this.props.navigation.goBack()},
                     ],
                     { cancelable: false }
                   )
