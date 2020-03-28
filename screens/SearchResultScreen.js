@@ -10,21 +10,21 @@ import {
 import TrackListProvider from "../provider/TrackListProvider";
 
 
-const MusicListItemRender = ( track ) => {
-    return(
-        <View style={styles.itemView}>
-            <TouchableOpacity style={styles.hiddenButton} onPress={() => { /* TODO Button implementation */ }}>
-                <Text style={styles.itemName}> { track }</Text>
-            </TouchableOpacity>
-            <View style={styles.separator}></View>
-        </View>
-    );
-}
-
 export default class SearchResultScreen extends Component {
     state = {
         trackList: [],
         loading: true,
+    }
+    
+    MusicListItemRender = ( track ) => {
+        return(
+            <View style={styles.itemView}>
+                <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails") }}>
+                    <Text style={styles.itemName}> { track }</Text>
+                </TouchableOpacity>
+                <View style={styles.separator}></View>
+            </View>
+        );
     }
 
     componentDidMount() {
@@ -59,7 +59,7 @@ export default class SearchResultScreen extends Component {
                         data ={this.state.trackList}
                         keyExtractor = { music => music.id } 
                         renderItem = {({ item }) => (
-                            MusicListItemRender(item.name)
+                            this.MusicListItemRender(item.name)
                         )}
                     />
                 </View>
