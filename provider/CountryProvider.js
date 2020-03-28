@@ -6,7 +6,7 @@ export default class CountryProvider {
             { id: "it", name: "Italy"},
             { id: "us", name: "United States"},
             { id: "uk", name: "United Kingdom"},
-            { id: "xw", name: "World Wide"},
+            { id: "wx", name: "World Wide"},
         ]
     }
 }

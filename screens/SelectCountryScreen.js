@@ -10,7 +10,10 @@ import {
 import CountryProvider from "../provider/CountryProvider";
 
 export default class SelectCountryScreen extends Component {
-  state = { countries: [] }
+  state = { 
+    countries: [],
+    countrySelected: "au"
+  }
 
   componentDidMount() {
     CountryProvider.getCountries()
@@ -31,10 +34,17 @@ export default class SelectCountryScreen extends Component {
         <View style={styles.separator}></View>
         <View style={styles.container}>
           <Text style={styles.textStart}>Get Started:</Text>
-          <Picker style={styles.picker} mode={"dropdown"}>
+          <Picker 
+            style={styles.picker} 
+            mode={"dropdown"}
+            onValueChange={(itemValue) =>
+              this.setState({countrySelected: itemValue})
+            }
+            selectedValue={this.state.countrySelected}
+          >
             {this.state.countries.map((country) => this.renderCountryItem(country))}
           </Picker>
-          <TouchableOpacity style={styles.searchButton} onPress={() => { this.props.navigation.navigate("SearchResult") }}>
+          <TouchableOpacity style={styles.searchButton} onPress={() => { this.props.navigation.navigate("SearchResult", { countrySelected: this.state.countrySelected }) }}>
             <Text style={styles.textStart}>Search</Text>
           </TouchableOpacity>
           <Text style={styles.textOption}>Search for a country and select it in one of the options above or set as worldwide.</Text>

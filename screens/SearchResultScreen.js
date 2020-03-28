@@ -5,28 +5,16 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
+import TrackListProvider from "../provider/TrackListProvider";
 
-const testMusicData = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      name: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      name: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      name: 'Third Item',
-    },
-];
 
-function MusicListItem({ name }) {
+const MusicListItemRender = ( track ) => {
     return(
         <View style={styles.itemView}>
             <TouchableOpacity style={styles.hiddenButton} onPress={() => { /* TODO Button implementation */ }}>
-                <Text style={styles.itemName}>{ name }</Text>
+                <Text style={styles.itemName}> { track }</Text>
             </TouchableOpacity>
             <View style={styles.separator}></View>
         </View>
@@ -34,20 +22,49 @@ function MusicListItem({ name }) {
 }
 
 export default class SearchResultScreen extends Component {
+    state = {
+        trackList: [],
+        loading: true,
+    }
+
+    componentDidMount() {
+        let { countrySelected } = this.props.route.params;
+        TrackListProvider.getTrackList(countrySelected)
+            .then(trackList => this.setState({ loading: false, trackList }))
+            .catch((err) => {
+                console.log(err)
+                Alert.alert(
+                    'Error',
+                    'Error trying to search for the best musics',
+                    [
+                      {text: 'Try again', onPress: () => this.props.navigation.goBack()},
+                    ],
+                    { cancelable: false }
+                  )
+            });
+    }
+
     render() {
-        return(
-            <View style={styles.container}>
-                <FlatList 
-                    data ={testMusicData /* TODO Data implemetation */}
-                    keyExtractor = { music => music.id } 
-                    renderItem = {({ music }) => (
-                        <MusicListItem 
-                            name={music.name}
-                        />
-                    )}
-                />
-            </View>
-        );
+        if(this.state.loading) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.loading}>Loading...</Text>
+                </View>
+              );
+            }
+            else{
+            return(
+                <View style={styles.container}>
+                    <FlatList 
+                        data ={this.state.trackList}
+                        keyExtractor = { music => music.id } 
+                        renderItem = {({ item }) => (
+                            MusicListItemRender(item.name)
+                        )}
+                    />
+                </View>
+            );
+        }
     }
 }
 
@@ -55,6 +72,13 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#2f2538",
         flex: 1,
+    },
+
+    loading: {
+        color: "#fff",
+        fontSize: 24,
+        textAlign: "center",
+        marginTop: 100,
     },
 
     itemView: {
