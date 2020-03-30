@@ -50,9 +50,9 @@ export default class SearchResultScreen extends Component {
                 <View style={styles.container}>
                     <Text style={styles.loading}>Loading...</Text>
                 </View>
-              );
-            }
-            else{
+            );
+        }
+        else{
             return(
                 <View style={styles.container}>
                     <FlatList 

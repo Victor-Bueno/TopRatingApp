@@ -3,8 +3,9 @@ import {
     View,
     Text,
     StyleSheet,
+    ScrollView,
 } from 'react-native';
-
+import LyricsProvider from "../provider/LyricsProvider"
 
 export default class SearchResultScreen extends Component {
     state = {
@@ -16,6 +17,8 @@ export default class SearchResultScreen extends Component {
             releaseDate: "2010-10-10",
             explicit: "No"
         },
+        lyrics: "Not found",
+        loading: true,
     }
     
     componentDidMount() {
@@ -29,26 +32,47 @@ export default class SearchResultScreen extends Component {
             details.explicit = "Yes";
         }
         this.setState({ trackName, trackID, details });
+        LyricsProvider.getLyrics(trackID)
+            .then(lyrics => this.setState({ loading: false, lyrics }))
+            .catch((err) => {
+                console.log(err)
+                Alert.alert(
+                    'Error',
+                    'Error trying to search for the lyrics',
+                    [
+                      {text: 'Try again', onPress: () => this.props.navigation.goBack()},
+                    ],
+                    { cancelable: false }
+                  )
+            });
     }
 
     render() {
-        return (
-            <View style={styles.background}>
-                <View style={styles.container}>
-                    <Text style={styles.titleText}>{this.state.trackName}</Text>
-                    <View style={styles.separator}></View>
-                    <Text style={styles.infoText}>Artist: {this.state.details.artist}</Text>
-                    <Text style={styles.infoText}>Album: {this.state.details.album}</Text>
-                    <Text style={styles.infoText}>Release Date: {this.state.details.releaseDate}</Text>
-                    <Text style={styles.infoText}>Explict Words: {this.state.details.explicit}</Text>
-                    <Text style={styles.lyricsTitleText}>Lyrics:</Text>
-                    <Text style={styles.lyricsText}>
-                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusant doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis.
-                        Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusant doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis.
-                    </Text>
+        if(this.state.loading) {
+            return (
+                <View style={styles.background}>
+                    <Text style={styles.loading}>Loading...</Text>
                 </View>
-            </View>
-        );
+            );
+        }
+        else{
+            return (
+                <ScrollView>
+                    <View style={styles.background}>
+                        <View style={styles.container}>
+                            <Text style={styles.titleText}>{this.state.trackName}</Text>
+                            <View style={styles.separator}></View>
+                            <Text style={styles.infoText}>Artist: {this.state.details.artist}</Text>
+                            <Text style={styles.infoText}>Album: {this.state.details.album}</Text>
+                            <Text style={styles.infoText}>Release Date: {this.state.details.releaseDate}</Text>
+                            <Text style={styles.infoText}>Explict Words: {this.state.details.explicit}</Text>
+                            <Text style={styles.lyricsTitleText}>Lyrics:</Text>
+                            <Text style={styles.lyricsText}>{this.state.lyrics}</Text>
+                        </View>
+                    </View>
+                </ScrollView>
+            );
+        }
     }
 }
 
@@ -56,6 +80,13 @@ const styles = StyleSheet.create({
     background: {
         backgroundColor: "#2f2538",
         flex: 1,
+    },
+
+    loading: {
+        color: "#fff",
+        fontSize: 24,
+        textAlign: "center",
+        marginTop: 100,
     },
 
     container: {
@@ -95,5 +126,6 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 18,
         maxWidth: 315,
+        marginBottom: 30,
     },
 });
