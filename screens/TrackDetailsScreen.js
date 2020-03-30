@@ -7,11 +7,22 @@ import {
 
 
 export default class SearchResultScreen extends Component {
+    state = {
+        trackName: 'Unknown',
+        trackID: '123'
+    }
+    
+    componentDidMount() {
+        let { trackName } = this.props.route.params;
+        let { trackID } = this.props.route.params;
+        this.setState({ trackName, trackID });
+    }
+
     render() {
         return (
             <View style={styles.background}>
                 <View style={styles.container}>
-                    <Text style={styles.titleText}>Title</Text>
+                    <Text style={styles.titleText}>{this.state.trackName}</Text>
                     <View style={styles.separator}></View>
                     <Text style={styles.infoText}>Artist: Jane Doe</Text>
                     <Text style={styles.infoText}>Album: The Album</Text>
