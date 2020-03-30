@@ -9,13 +9,26 @@ import {
 export default class SearchResultScreen extends Component {
     state = {
         trackName: 'Unknown',
-        trackID: '123'
+        trackID: '123',
+        details: {
+            artist: "Jane Doe",
+            album: "The Album",
+            releaseDate: "2010-10-10",
+            explicit: "No"
+        },
     }
     
     componentDidMount() {
         let { trackName } = this.props.route.params;
         let { trackID } = this.props.route.params;
-        this.setState({ trackName, trackID });
+        let { details } = this.props.route.params;
+        if(details.explicit == 0) {
+            details.explicit = "No";
+        }
+        else {
+            details.explicit = "Yes";
+        }
+        this.setState({ trackName, trackID, details });
     }
 
     render() {
@@ -24,10 +37,10 @@ export default class SearchResultScreen extends Component {
                 <View style={styles.container}>
                     <Text style={styles.titleText}>{this.state.trackName}</Text>
                     <View style={styles.separator}></View>
-                    <Text style={styles.infoText}>Artist: Jane Doe</Text>
-                    <Text style={styles.infoText}>Album: The Album</Text>
-                    <Text style={styles.infoText}>First Release Date: 10/10/2010</Text>
-                    <Text style={styles.infoText}>Explict Words: No</Text>
+                    <Text style={styles.infoText}>Artist: {this.state.details.artist}</Text>
+                    <Text style={styles.infoText}>Album: {this.state.details.album}</Text>
+                    <Text style={styles.infoText}>Release Date: {this.state.details.releaseDate}</Text>
+                    <Text style={styles.infoText}>Explict Words: {this.state.details.explicit}</Text>
                     <Text style={styles.lyricsTitleText}>Lyrics:</Text>
                     <Text style={styles.lyricsText}>
                         Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusant doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis.

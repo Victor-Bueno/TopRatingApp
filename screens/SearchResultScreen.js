@@ -16,10 +16,10 @@ export default class SearchResultScreen extends Component {
         loading: true,
     }
     
-    MusicListItemRender = ( trackName, trackID ) => {
+    MusicListItemRender = ( trackName, trackID, details ) => {
         return(
             <View style={styles.itemView}>
-                <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails", {trackName, trackID}) }}>
+                <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails", { trackName, trackID, details }) }}>
                     <Text style={styles.itemName}> { trackName }</Text>
                 </TouchableOpacity>
                 <View style={styles.separator}></View>
@@ -59,7 +59,7 @@ export default class SearchResultScreen extends Component {
                         data ={this.state.trackList}
                         keyExtractor = { music => music.id } 
                         renderItem = {({ item }) => (
-                            this.MusicListItemRender(item.name, item.id)
+                            this.MusicListItemRender(item.name, item.id, item.details)
                         )}
                     />
                 </View>
