@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const MMKey = "df305db8d07b8dfe85a2419fda233462";
+import MMKey from "../config/Constants"
 
 export default class TrackListService {
     static async getTrackListData(countrySelected){
