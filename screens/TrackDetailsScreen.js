@@ -18,12 +18,6 @@ export default class SearchResultScreen extends Component {
             lyrics: "Not found",
             loading: true,
         }
-        if(this.state.details.explicit == 0) {
-            this.state.details.explicit = "No";
-        }
-        else {
-            this.state.details.explicit = "Yes";
-        }
     }
     
     componentDidMount() {

@@ -13,7 +13,7 @@ export default class TrackListProvider {
             artist: it.track.artist_name,
             album: it.track.album_name,
             releaseDate: it.track.updated_time.substring(0, 9),
-            explicit: it.track.explicit,
+            explicit: it.track.explicit == 0 ? "No" : "Yes",
           },
       };
     });
