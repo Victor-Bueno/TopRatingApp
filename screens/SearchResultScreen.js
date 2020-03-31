@@ -31,22 +31,22 @@ export default class SearchResultScreen extends Component {
                 ],
                 { cancelable: false }
                 )
-            });
-        }
+        });
+    }
         
-        renderMusicListItem = ( trackName, trackID, details ) => {
-            return(
-                <View style={styles.itemView}>
-                    <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails", { trackName, trackID, details }) }}>
-                        <Text style={styles.itemName}> { trackName }</Text>
-                    </TouchableOpacity>
-                    <View style={styles.separator}></View>
-                </View>
-            );
-        }
+    renderMusicListItem = ( trackName, trackID, details ) => {
+        return(
+            <View style={styles.itemView}>
+                <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails", { trackName, trackID, details }) }}>
+                    <Text style={styles.itemName}> { trackName }</Text>
+                </TouchableOpacity>
+                <View style={styles.separator}></View>
+            </View>
+        );
+    }
         
-        render() {
-            if(this.state.loading) {
+    render() {
+        if(this.state.loading) {
             return (
                 <View style={styles.container}>
                     <Text style={styles.loading}>Loading...</Text>

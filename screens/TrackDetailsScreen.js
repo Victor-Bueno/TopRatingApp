@@ -12,9 +12,9 @@ export default class SearchResultScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            trackName: this.props.route.params.trackName,
-            trackID: this.props.route.params.trackID,
-            details: this.props.route.params.details,
+            trackName: props.route.params.trackName,
+            trackID: props.route.params.trackID,
+            details: props.route.params.details,
             lyrics: "Not found",
             loading: true,
         }
