@@ -5,7 +5,7 @@ export default class TrackListProvider {
     let trackList = [];
     let trackListData = await TrackListService.getTrackListData(countrySelected);
 
-    trackList = trackListData.message.body.track_list.map(it => {
+    return trackListData.message.body.track_list.map(it => {
       return {
           id: it.track.track_id.toString(),
           name: it.track.track_name,
@@ -17,6 +17,5 @@ export default class TrackListProvider {
           },
       };
     });
-    return trackList;
   }
 }
