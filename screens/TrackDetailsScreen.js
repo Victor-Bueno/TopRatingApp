@@ -8,31 +8,26 @@ import {
 import LyricsProvider from "../provider/LyricsProvider"
 
 export default class SearchResultScreen extends Component {
-    state = {
-        trackName: 'Unknown',
-        trackID: '123',
-        details: {
-            artist: "Jane Doe",
-            album: "The Album",
-            releaseDate: "2010-10-10",
-            explicit: "No"
-        },
-        lyrics: "Not found",
-        loading: true,
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            trackName: this.props.route.params.trackName,
+            trackID: this.props.route.params.trackID,
+            details: this.props.route.params.details,
+            lyrics: "Not found",
+            loading: true,
+        }
+        if(this.state.details.explicit == 0) {
+            this.state.details.explicit = "No";
+        }
+        else {
+            this.state.details.explicit = "Yes";
+        }
     }
     
     componentDidMount() {
-        let { trackName } = this.props.route.params;
-        let { trackID } = this.props.route.params;
-        let { details } = this.props.route.params;
-        if(details.explicit == 0) {
-            details.explicit = "No";
-        }
-        else {
-            details.explicit = "Yes";
-        }
-        this.setState({ trackName, trackID, details });
-        LyricsProvider.getLyrics(trackID)
+        LyricsProvider.getLyrics(this.state.trackID)
             .then(lyrics => this.setState({ loading: false, lyrics }))
             .catch((err) => {
                 console.log(err)
