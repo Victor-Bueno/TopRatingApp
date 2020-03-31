@@ -16,36 +16,37 @@ export default class SearchResultScreen extends Component {
         loading: true,
     }
     
-    MusicListItemRender = ( trackName, trackID, details ) => {
-        return(
-            <View style={styles.itemView}>
-                <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails", { trackName, trackID, details }) }}>
-                    <Text style={styles.itemName}> { trackName }</Text>
-                </TouchableOpacity>
-                <View style={styles.separator}></View>
-            </View>
-        );
-    }
-
+    
     componentDidMount() {
         let { countrySelected } = this.props.route.params;
         TrackListProvider.getTrackList(countrySelected)
-            .then(trackList => this.setState({ loading: false, trackList }))
-            .catch((err) => {
-                console.log(err)
-                Alert.alert(
-                    'Error',
-                    'Error trying to search for the best musics',
-                    [
-                      {text: 'Try again', onPress: () => this.props.navigation.goBack()},
-                    ],
-                    { cancelable: false }
-                  )
+        .then(trackList => this.setState({ loading: false, trackList }))
+        .catch((err) => {
+            console.log(err)
+            Alert.alert(
+                'Error',
+                'Error trying to search for the best musics',
+                [
+                    {text: 'Try again', onPress: () => this.props.navigation.goBack()},
+                ],
+                { cancelable: false }
+                )
             });
-    }
-
-    render() {
-        if(this.state.loading) {
+        }
+        
+        renderMusicListItem = ( trackName, trackID, details ) => {
+            return(
+                <View style={styles.itemView}>
+                    <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails", { trackName, trackID, details }) }}>
+                        <Text style={styles.itemName}> { trackName }</Text>
+                    </TouchableOpacity>
+                    <View style={styles.separator}></View>
+                </View>
+            );
+        }
+        
+        render() {
+            if(this.state.loading) {
             return (
                 <View style={styles.container}>
                     <Text style={styles.loading}>Loading...</Text>
@@ -59,7 +60,7 @@ export default class SearchResultScreen extends Component {
                         data ={this.state.trackList}
                         keyExtractor = { music => music.id } 
                         renderItem = {({ item }) => (
-                            this.MusicListItemRender(item.name, item.id, item.details)
+                            this.renderMusicListItem(item.name, item.id, item.details)
                         )}
                     />
                 </View>
