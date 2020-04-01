@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SelectCountryScreen from "./screens/SelectCountryScreen"
 import SearchResultScreen from "./screens/SearchResultScreen"
+import TrackDetailsScreen from "./screens/TrackDetailsScreen"
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,13 @@ function App() {
           component={SearchResultScreen} 
           options={{
             title: "Showing the top musics:",
+          }}
+        />
+        <Stack.Screen 
+          name="TrackDetails" 
+          component={TrackDetailsScreen} 
+          options={{
+            title: "Showing the track details:",
           }}
         />
       </Stack.Navigator>

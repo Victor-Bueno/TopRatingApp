@@ -10,23 +10,13 @@ import {
 import TrackListProvider from "../provider/TrackListProvider";
 
 
-const MusicListItemRender = ( track ) => {
-    return(
-        <View style={styles.itemView}>
-            <TouchableOpacity style={styles.hiddenButton} onPress={() => { /* TODO Button implementation */ }}>
-                <Text style={styles.itemName}> { track }</Text>
-            </TouchableOpacity>
-            <View style={styles.separator}></View>
-        </View>
-    );
-}
-
 export default class SearchResultScreen extends Component {
     state = {
         trackList: [],
         loading: true,
     }
-
+    
+    
     componentDidMount() {
         let { countrySelected } = this.props.route.params;
         TrackListProvider.getTrackList(countrySelected)
@@ -37,29 +27,40 @@ export default class SearchResultScreen extends Component {
                     'Error',
                     'Error trying to search for the best musics',
                     [
-                      {text: 'Try again', onPress: () => this.props.navigation.goBack()},
+                        {text: 'Try again', onPress: () => this.props.navigation.goBack()},
                     ],
                     { cancelable: false }
-                  )
+                )
             });
     }
-
+        
+    renderMusicListItem = ( trackName, trackID, details ) => {
+        return(
+            <View style={styles.itemView}>
+                <TouchableOpacity style={styles.hiddenButton} onPress={() => { this.props.navigation.navigate("TrackDetails", { trackName, trackID, details }) }}>
+                    <Text style={styles.itemName}> { trackName }</Text>
+                </TouchableOpacity>
+                <View style={styles.separator}></View>
+            </View>
+        );
+    }
+        
     render() {
         if(this.state.loading) {
             return (
                 <View style={styles.container}>
                     <Text style={styles.loading}>Loading...</Text>
                 </View>
-              );
-            }
-            else{
+            );
+        }
+        else{
             return(
                 <View style={styles.container}>
                     <FlatList 
                         data ={this.state.trackList}
                         keyExtractor = { music => music.id } 
                         renderItem = {({ item }) => (
-                            MusicListItemRender(item.name)
+                            this.renderMusicListItem(item.name, item.id, item.details)
                         )}
                     />
                 </View>
