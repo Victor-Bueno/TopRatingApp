@@ -2,7 +2,6 @@ import TrackListService from "../services/TrackListService";
 
 export default class TrackListProvider {
   static async getTrackList(countrySelected) {
-    let trackList = [];
     let trackListData = await TrackListService.getTrackListData(countrySelected);
 
     return trackListData.message.body.track_list.map(it => {

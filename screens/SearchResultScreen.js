@@ -20,18 +20,18 @@ export default class SearchResultScreen extends Component {
     componentDidMount() {
         let { countrySelected } = this.props.route.params;
         TrackListProvider.getTrackList(countrySelected)
-        .then(trackList => this.setState({ loading: false, trackList }))
-        .catch((err) => {
-            console.log(err)
-            Alert.alert(
-                'Error',
-                'Error trying to search for the best musics',
-                [
-                    {text: 'Try again', onPress: () => this.props.navigation.goBack()},
-                ],
-                { cancelable: false }
+            .then(trackList => this.setState({ loading: false, trackList }))
+            .catch((err) => {
+                console.log(err)
+                Alert.alert(
+                    'Error',
+                    'Error trying to search for the best musics',
+                    [
+                        {text: 'Try again', onPress: () => this.props.navigation.goBack()},
+                    ],
+                    { cancelable: false }
                 )
-        });
+            });
     }
         
     renderMusicListItem = ( trackName, trackID, details ) => {
