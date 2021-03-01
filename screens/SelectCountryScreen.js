@@ -12,7 +12,7 @@ import CountryProvider from "../provider/CountryProvider";
 export default class SelectCountryScreen extends Component {
   state = { 
     countries: [],
-    countrySelected: "au"
+    countrySelected: "us"
   }
 
   componentDidMount() {
